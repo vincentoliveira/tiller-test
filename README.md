@@ -20,12 +20,12 @@
 * Entity: AppBundle:Category
 * Name: Entrées
 * Products:
-* * Entity: AppBundle:Product
-* * Name: Salade 1
-* * Price: 5,00
-* * Description : Description de la salade 1
+ * Entity: AppBundle:Product
+ * Name: Salade 1
+ * Price: 5,00
+ * Description : Description de la salade 1
 
-* * Entity: AppBundle:Product
-* * Name: Salade 2
-* * Price: 6,00
-* * Description : Description de la salade 2
+ * Entity: AppBundle:Product
+ * Name: Salade 2
+ * Price: 6,00
+ * Description : Description de la salade 2
