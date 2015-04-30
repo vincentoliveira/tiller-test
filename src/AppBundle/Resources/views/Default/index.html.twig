@@ -4,6 +4,41 @@
         <meta charset="UTF-8" />
         <title>Test Tiller!</title>
     </head>
-        <h1>Test Technique Tiller</h1>
-    </body>
+    <h1>Test Technique Tiller</h1>
+
+    <h3>Travail</h3>
+    <ol>
+        <li>Installer le projet Symfony2</li>
+        <li>liste des categories</li>
+        <li>creation categories</li>
+        <li>modification categories</li>
+        <li>suppression categories</li>
+        <li>liste des produits</li>
+        <li>creation produits</li>
+        <li>modification produits</li>
+        <li>suppression produits</li>
+        <li>service pour recupérer les produits d'une catégorie (au format JSON)</li>
+    </ol>
+
+
+    <h3>Données</h3>
+    {% for category in categories %}
+        <ul>
+            <li>Entity: AppBundle:Category</li>
+            <li>Name: {{ category.name }}</li>
+            <li>Products:
+                {% for product in category.products %}
+                    <ul>
+                        <li>Entity: AppBundle:Product</li>
+                        <li>Name: {{ product.name }}</li>
+                        <li>Price: {{ (product.price / 100)|number_format(2, ',', ' ') }}</li>
+                        <li>Description : <em>{{ product.description }}</em></li>
+                    </ul>
+                    <br/>
+                {% endfor %}
+            </li>
+        </ul>
+        <br/>
+    {% endfor %}
+</body>
 </html>

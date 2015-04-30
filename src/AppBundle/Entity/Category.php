@@ -32,7 +32,7 @@ class Category {
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="category", cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $products;
 
