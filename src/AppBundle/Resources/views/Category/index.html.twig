@@ -15,7 +15,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('category_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
+                <td>{{ entity.name }} <a href="{{ path('category_products', {id: entity.id }) }} ">ws</a></td>
                 <td>
                 <ul>
                     <li>
