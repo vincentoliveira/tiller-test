@@ -11,7 +11,8 @@
 7. creation produits
 8. modification produits
 9. suppression produits
-10. service pour recupérer les produits d'une catégorie (au format JSON)
+10. (bonus) service pour recupérer les produits d'une catégorie (au format JSON) : /category/{{id}}/products.json
+11. (bonus) service pour recupérer les produits ou categories contenant un mot clé : /search/{{search}}
 
 
 ## Données
