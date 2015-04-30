@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+}
+
+#header {
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #666;
+    border-color: #e5e5e5;
+    padding: 12px 13px 0px;
+}
+
+#logo {
+    display: inline-block;
+    height: 37px;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    width: 95px;
+}
+
+#logo img {
+    border: 0;
+    left: 0;
+    position: absolute;
+    top: -41px;
+}
+
+#header form {
+    position: relative;
+    top: -15px;
+    display: inline-block;
+    margin-left: 20px;
+}
+#header form input {
+    -webkit-box-sizing: border-box;
+    width: 512px;
+    height: 32px;
+    font: 16px arial,sans-serif;
+    line-height: 1.2em !important;
+}
+#header form button {
+    width: 58px;
+    height: 32px;
+    background-color: #4d90fe;
+    border: none;
+    margin-left: -4px;
+    top: 3px;
+    position: relative;
+}
+#header form button .search-icon {
+    background: url('http://www.google.fr/images/nav_logo195.png') no-repeat -113px -61px;
+    color: transparent;
+    display: inline-block;
+    height: 18px;
+    margin: 0 auto 2px;
+    width: 18px;
+}
