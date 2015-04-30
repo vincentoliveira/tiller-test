@@ -17,9 +17,14 @@
         <li>creation produits</li>
         <li>modification produits</li>
         <li>suppression produits</li>
-        <li>service pour recupérer les produits d'une catégorie (au format JSON)</li>
+        <li>service web pour recupérer les produits d'une catégorie (au format JSON)</li>
     </ol>
 
+    <h3>Liens</h3>
+    <ul>
+        <li><a href="{{ path('category') }}">Categories</a></li>
+        <li><a href="{{ path('product') }}">Produits</a></li>
+    </ul>
 
     <h3>Données</h3>
     {% for category in categories %}
