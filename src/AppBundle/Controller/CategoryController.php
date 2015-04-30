@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,8 +16,7 @@ use AppBundle\Form\CategoryType;
  *
  * @Route("/category")
  */
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
 
     /**
      * Lists all Category entities.
@@ -25,8 +25,7 @@ class CategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Category')->findAll();
@@ -35,6 +34,34 @@ class CategoryController extends Controller
             'entities' => $entities,
         );
     }
+    
+    /**
+     * Finds and displays Category Product List.
+     *
+     * @Route("/{id}/products", name="category_products")
+     * @Method("GET")
+     */
+    public function productsAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Category')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+        
+        $products = array();
+        foreach($entity->getProducts() as $product) {
+            $products[] = array(
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'description' => $product->getDescription(),
+            );
+        }
+        
+        return new JsonResponse(array('products' => $products));
+    }
+
     /**
      * Creates a new Category entity.
      *
@@ -42,8 +69,7 @@ class CategoryController extends Controller
      * @Method("POST")
      * @Template("AppBundle:Category:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Category();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -58,7 +84,7 @@ class CategoryController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -69,8 +95,7 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Category $entity)
-    {
+    private function createCreateForm(Category $entity) {
         $form = $this->createForm(new CategoryType(), $entity, array(
             'action' => $this->generateUrl('category_create'),
             'method' => 'POST',
@@ -88,14 +113,13 @@ class CategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Category();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -106,8 +130,7 @@ class CategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Category')->find($id);
@@ -119,7 +142,7 @@ class CategoryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -131,8 +154,7 @@ class CategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Category')->find($id);
@@ -145,21 +167,20 @@ class CategoryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Category entity.
-    *
-    * @param Category $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Category $entity)
-    {
+     * Creates a form to edit a Category entity.
+     *
+     * @param Category $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Category $entity) {
         $form = $this->createForm(new CategoryType(), $entity, array(
             'action' => $this->generateUrl('category_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -169,6 +190,7 @@ class CategoryController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Category entity.
      *
@@ -176,8 +198,7 @@ class CategoryController extends Controller
      * @Method("PUT")
      * @Template("AppBundle:Category:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Category')->find($id);
@@ -197,19 +218,19 @@ class CategoryController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Category entity.
      *
      * @Route("/{id}", name="category_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -235,13 +256,13 @@ class CategoryController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('category_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('category_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }
